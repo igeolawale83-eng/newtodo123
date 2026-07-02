@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Field Ledger — Task Log</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="board">
+
+    <header class="masthead">
+      <div class="masthead-left">
+        <span class="eyebrow">Daily Intake · No. <span id="ticketCount">000</span></span>
+        <h1>Field Ledger</h1>
+        <p class="subtitle">Log a task. Track it. Cross it off.</p>
+      </div>
+      <div class="stamp-date" id="todayStamp"></div>
+    </header>
+
+    <section class="intake-card" aria-labelledby="formHeading">
+      <h2 id="formHeading" class="card-heading">Intake Slip</h2>
+
+      <form id="todoForm" novalidate>
+        <input type="hidden" id="editId" value="">
+
+        <div class="field">
+          <label for="title">Title</label>
+          <input type="text" id="title" name="title" placeholder="e.g. Ship the quarterly report" required maxlength="80">
+        </div>
+
+        <div class="field">
+          <label for="description">Description</label>
+          <textarea id="description" name="description" placeholder="Notes, links, anything worth remembering" rows="2" maxlength="300"></textarea>
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label for="priority">Priority</label>
+            <select id="priority" name="priority" required>
+              <option value="Very Important">Very Important</option>
+              <option value="Important" selected>Important</option>
+              <option value="Less Important">Less Important</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="dueDate">Due date</label>
+            <input type="date" id="dueDate" name="dueDate" required>
+          </div>
+
+          <div class="field">
+            <label for="dueTime">Due time</label>
+            <input type="time" id="dueTime" name="dueTime" required>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <span class="form-error" id="formError" role="alert"></span>
+          <div class="form-buttons">
+            <button type="button" id="cancelEdit" class="btn btn-ghost" hidden>Cancel edit</button>
+            <button type="submit" id="submitBtn" class="btn btn-primary">File task</button>
+          </div>
+        </div>
+      </form>
+    </section>
+
+    <section class="ledger-card" aria-labelledby="ledgerHeading">
+      <div class="ledger-toolbar">
+        <h2 id="ledgerHeading" class="card-heading">The Ledger</h2>
+        <div class="toolbar-controls">
+          <label class="sort-label" for="sortSelect">Sort by</label>
+          <select id="sortSelect">
+            <option value="due-asc">Due date (soonest)</option>
+            <option value="due-desc">Due date (latest)</option>
+            <option value="priority">Priority</option>
+            <option value="created">Date added</option>
+          </select>
+          <label class="filter-toggle">
+            <input type="checkbox" id="hideCompleted">
+            Hide completed
+          </label>
+        </div>
+      </div>
+
+      <div class="table-wrap">
+        <table id="ledgerTable">
+          <thead>
+            <tr>
+              <th class="col-priority">Priority</th>
+              <th class="col-title">Task</th>
+              <th class="col-desc">Description</th>
+              <th class="col-due">Due</th>
+              <th class="col-status">Status</th>
+              <th class="col-actions">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="ledgerBody">
+          </tbody>
+        </table>
+
+        <div id="emptyState" class="empty-state" hidden>
+          <p class="empty-title">The ledger is clean.</p>
+          <p class="empty-copy">File a task above to open your first entry.</p>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
